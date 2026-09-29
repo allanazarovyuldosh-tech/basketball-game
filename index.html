@@ -1,46 +1,34 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>Age Calculator</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бросок мяча в сетку</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="calculator">
-    <h1>Калькулятор возраста</h1>
-    <input type="date" id="birthdate">
-    <button id="calcBtn">Рассчитать</button>
-    <div class="result"></div>
-  </div>
-  <script src="script.js"></script>
+
+    <div class="game-container">
+        <h1>Брось мяч в сетку!</h1>
+        <div class="score-board">Очки: <span id="score">0</span></div>
+
+        <div class="playground">
+            <!-- Баскетбольное кольцо / сетка -->
+            <div class="hoop" id="hoop">
+                <div class="net"></div>
+            </div>
+
+            <!-- Мальчик и мяч -->
+            <div class="player" id="player">👦</div>
+            <div class="ball" id="ball">🏀</div>
+        </div>
+
+        <button class="btn-throw" id="throwBtn">Бросить мяч!</button>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
-Снимок экрана 2026-04-22 112950.png
-<img width="1025" height="683" alt="image" src="https://github.com/user-attachments/assets/6050ba71-3feb-4066-8de3-1101fcd6a446" />
-</body> 
-</html>
-  
-  </style>
-</head>
-<body>
-  <div class="container">
-    <!-- Баннер или картинка -->
-      <h1>Age Calculator</h1>
-    <input type="date" id="birthdate">
-    <button onclick="calculateAge()">Calculate</button>
-    <p id="result"></p>
- </body> 
-</html>
-  
-  </style>
-</head>
-<body>
-  <div class="container">
-    <!-- Баннер или картинка -->
-      <h1>Age Calculator</h1>
-    <input type="date" id="birthdate">
-    <button onclick="calculateAge()">Calculate</button>
-    <p id="result"></p>
 
 
 
