@@ -3,47 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Бросок мяча в сетку</title>
+    <title>Супер Бросок: Баскетбольная Дуэль</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #74ebd5, #acb6e5);
-            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            color: #fff;
+            user-select: none;
         }
 
         .game-container {
             text-align: center;
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            background: #ffffff;
+            color: #333;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            width: 420px;
         }
 
         h1 {
             margin-top: 0;
-            color: #333;
             font-size: 22px;
+            color: #ff5722;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .score-board {
-            font-size: 18px;
-            margin-bottom: 10px;
+            font-size: 16px;
+            margin-bottom: 12px;
             font-weight: bold;
             color: #555;
+            background: #f1f3f5;
+            padding: 8px;
+            border-radius: 8px;
         }
 
         .playground {
             position: relative;
-            width: 400px;
-            height: 350px;
-            background: #eef2f3;
-            border: 2px dashed #ccc;
-            border-radius: 10px;
+            width: 100%;
+            height: 320px;
+            background: linear-gradient(to bottom, #e0f7fa, #80deea);
+            border: 3px solid #b0bec5;
+            border-radius: 12px;
             overflow: hidden;
             margin-bottom: 15px;
         }
@@ -51,55 +60,134 @@
         /* Баскетбольный щит и кольцо */
         .backboard {
             position: absolute;
-            top: 40px;
-            right: 30px;
-            width: 10px;
-            height: 80px;
-            background: #b0bec5;
+            top: 30px;
+            right: 25px;
+            width: 12px;
+            height: 90px;
+            background: #37474f;
+            border-radius: 2px;
         }
 
         .hoop {
             position: absolute;
             top: 95px;
-            right: 40px;
+            right: 37px;
             width: 55px;
             height: 8px;
-            background: #ff5722;
+            background: #ff3d00;
             border-radius: 2px;
-            z-index: 2;
+            z-index: 5;
         }
 
         .net {
             position: absolute;
             top: 103px;
-            right: 43px;
+            right: 40px;
             width: 45px;
-            height: 50px;
-            border: 2px dashed #b0bec5;
+            height: 55px;
+            border: 2px dashed rgba(255, 255, 255, 0.9);
             border-top: none;
-            background: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.2);
+            z-index: 4;
+            transform-origin: top center;
+            transition: transform 0.3s ease;
         }
 
-        /* Мальчик */
+        .net.swing {
+            animation: netSwing 0.4s ease-in-out;
+        }
+
+        @keyframes netSwing {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(15deg); }
+            50% { transform: rotate(-15deg); }
+            75% { transform: rotate(8deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        /* Живой персонаж (мальчик с руками) */
         .player {
             position: absolute;
             bottom: 20px;
-            left: 30px;
-            font-size: 50px;
+            left: 40px;
+            width: 50px;
+            height: 90px;
+            z-index: 3;
             transition: transform 0.2s;
+        }
+
+        .player-head {
+            position: absolute;
+            top: 0;
+            left: 10px;
+            width: 30px;
+            height: 30px;
+            background: #ffccbc;
+            border-radius: 50%;
+            border: 2px solid #d84315;
+        }
+
+        .player-body {
+            position: absolute;
+            top: 30px;
+            left: 12px;
+            width: 26px;
+            height: 35px;
+            background: #1976d2;
+            border-radius: 6px;
+        }
+
+        .player-arm {
+            position: absolute;
+            top: 35px;
+            left: 25px;
+            width: 25px;
+            height: 8px;
+            background: #ffccbc;
+            border-radius: 4px;
+            transform-origin: left center;
+            transition: transform 0.3s;
+        }
+
+        .player-legs {
+            position: absolute;
+            bottom: 0;
+            left: 14px;
+            width: 22px;
+            height: 25px;
+            background: #37474f;
+            border-radius: 4px;
         }
 
         /* Мяч */
         .ball {
             position: absolute;
-            bottom: 50px;
-            left: 70px;
+            bottom: 55px;
+            left: 75px;
             width: 26px;
             height: 26px;
             background: radial-gradient(circle at 30% 30%, #ff7043, #d84315);
             border-radius: 50%;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-            z-index: 3;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            z-index: 6;
+        }
+
+        /* Индикатор силы броска */
+        .power-bar-container {
+            width: 100%;
+            height: 12px;
+            background: #e0e0e0;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .power-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(to right, #4caf50, #ffeb3b, #f44336);
+            transition: width 0.05s linear;
         }
 
         /* Кнопка */
@@ -107,131 +195,184 @@
             background-color: #ff5722;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 24px;
             font-size: 16px;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
-            transition: background 0.2s;
+            box-shadow: 0 4px 10px rgba(255,87,34,0.4);
+            transition: all 0.2s;
+            width: 100%;
         }
 
         .btn-throw:hover {
             background-color: #e64a19;
+            transform: translateY(-2px);
+        }
+
+        .btn-throw:active {
+            transform: translateY(0);
         }
 
         .message {
-            height: 20px;
+            height: 24px;
             font-weight: bold;
-            margin-top: 5px;
-            font-size: 14px;
+            margin-top: 8px;
+            font-size: 15px;
         }
     </style>
 </head>
 <body>
 
     <div class="game-container">
-        <h1>Брось мяч в сетку!</h1>
-        <div class="score-board">Очки: <span id="score">0</span> | Промахи: <span id="misses">0</span></div>
+        <h1>🏀 Баскетбольный Бросок</h1>
+        <div class="score-board">
+            Очки: <span id="score" style="color: #2e7d32;">0</span> | 
+            Промахи: <span id="misses" style="color: #c62828;">0</span>
+        </div>
 
         <div class="playground" id="playground">
             <!-- Щит, кольцо и сетка -->
             <div class="backboard"></div>
-            <div class="hoop" id="hoopElement"></div>
-            <div class="net"></div>
+            <div class="hoop"></div>
+            <div class="net" id="net"></div>
 
-            <!-- Мальчик и мяч -->
-            <div class="player" id="player">👦</div>
+            <!-- Анимированный мальчик -->
+            <div class="player" id="player">
+                <div class="player-head"></div>
+                <div class="player-body"></div>
+                <div class="player-arm" id="playerArm"></div>
+                <div class="player-legs"></div>
+            </div>
+
+            <!-- Мяч -->
             <div class="ball" id="ball"></div>
         </div>
 
-        <button class="btn-throw" id="throwBtn">Бросить мяч!</button>
-        <div class="message" id="message"></div>
+        <div class="power-bar-container" id="powerContainer">
+            <div class="power-bar" id="powerBar"></div>
+        </div>
+
+        <button class="btn-throw" id="throwBtn">Удерживайте для силы броска!</button>
+        <div class="message" id="message">Зажмите кнопку, чтобы рассчитать бросок!</div>
     </div>
 
     <script>
         const throwBtn = document.getElementById('throwBtn');
         const ball = document.getElementById('ball');
-        const player = document.getElementById('player');
+        const playerArm = document.getElementById('playerArm');
+        const net = document.getElementById('net');
         const scoreElement = document.getElementById('score');
         const missesElement = document.getElementById('misses');
         const messageElement = document.getElementById('message');
+        const powerContainer = document.getElementById('powerContainer');
+        const powerBar = document.getElementById('powerBar');
 
         let score = 0;
         let misses = 0;
+        let isHolding = false;
         let isThrowing = false;
+        let power = 0;
+        let powerInterval;
 
-        throwBtn.addEventListener('click', () => {
+        // Управление зажатием кнопки для расчета силы броска
+        throwBtn.addEventListener('mousedown', startCharging);
+        throwBtn.addEventListener('touchstart', (e) => { e.preventDefault(); startCharging(); });
+
+        window.addEventListener('mouseup', releaseThrow);
+        window.addEventListener('touchend', releaseThrow);
+
+        function startCharging() {
             if (isThrowing) return;
-            isThrowing = true;
-            messageElement.textContent = '';
-
-            // Анимация броска мальчика (легкий наклон вперед)
-            player.style.transform = 'rotate(-15deg) translateY(-5px)';
-
-            // Начальные координаты мяча относительно площадки
-            let startX = 70;
-            let startY = 50; // снизу
+            isHolding = true;
+            power = 0;
+            powerContainer.style.display = 'block';
+            messageElement.textContent = 'Цельтесь... Отпустите для броска!';
             
-            // Цель: координаты кольца (примерно в правом верхнем углу)
-            let targetX = 285;
-            let targetY = 225; // расстояние сверху в пикселях контейнера
+            // Рука поднимается для замаха
+            playerArm.style.transform = 'rotate(-45deg)';
 
-            // Случайный разброс, чтобы мяч иногда летел мимо (делает игру интереснее!)
-            let isHit = Math.random() > 0.4; // 60% шанс попадания
+            powerInterval = setInterval(() => {
+                power += 3;
+                if (power > 100) power = 0; // циклический индикатор силы
+                powerBar.style.width = power + '%';
+            }, 30);
+        }
+
+        function releaseThrow() {
+            if (!isHolding || isThrowing) return;
+            isHolding = false;
+            clearInterval(powerInterval);
+            isThrowing = true;
+            powerContainer.style.display = 'none';
+
+            // Опускаем руку при броске
+            playerArm.style.transform = 'rotate(10deg)';
+
+            // Определяем точность на основе силы (идеальная сила примерно от 60 до 80)
+            let startX = 75;
+            let startY = 55;
+            let targetX = 295; // примерное положение кольца
+            let targetY = 210;
+
+            // Расчет попадания: идеальная зона силы дает гол
+            let isHit = (power >= 50 && power <= 85);
+            
             if (!isHit) {
-                targetX += (Math.random() > 0.5 ? 45 : -45); // перелет или недолет
+                // Если сила слишком мала или велика, мяч летит мимо
+                targetX += (power < 50 ? -60 : 70);
             }
 
             let startTime = null;
-            let duration = 700; // длительность полета в мс
+            let duration = 600;
 
-            function animateThrow(timestamp) {
+            function animate(timestamp) {
                 if (!startTime) startTime = timestamp;
                 let progress = (timestamp - startTime) / duration;
                 if (progress > 1) progress = 1;
 
-                // Формула параболы для полета мяча
                 let currentX = startX + (targetX - startX) * progress;
                 let baseLayerY = startY + (targetY - startY) * progress;
-                // Параболическое смещение вверх (чем ближе к центру, тем выше поднимается)
-                let heightArc = -120 * Math.sin(progress * Math.PI); 
+                let heightArc = -140 * Math.sin(progress * Math.PI); // парабола дуги
                 let currentY = baseLayerY + heightArc;
 
-                // Применяем координаты к мячу (в CSS используем bottom и left)
                 ball.style.left = currentX + 'px';
                 ball.style.bottom = currentY + 'px';
                 ball.style.transform = `rotate(${progress * 720}deg)`;
 
                 if (progress < 1) {
-                    requestAnimationFrame(animateThrow);
+                    requestAnimationFrame(animate);
                 } else {
-                    // Возвращаем мальчика в исходное положение
-                    player.style.transform = 'rotate(0deg) translateY(0)';
-
                     if (isHit) {
                         score += 1;
                         scoreElement.textContent = score;
                         messageElement.style.color = '#2e7d32';
-                        messageElement.textContent = 'Точно в сетку! Гол! 🏀';
+                        messageElement.textContent = '🎯 Чистый гол! Отличный бросок!';
+                        
+                        // Запуск анимации колыхания сетки
+                        net.classList.add('swing');
+                        setTimeout(() => net.classList.remove('swing'), 400);
                     } else {
                         misses += 1;
                         missesElement.textContent = misses;
                         messageElement.style.color = '#c62828';
-                        messageElement.textContent = 'Мимо! Попробуйте еще раз.';
+                        messageElement.textContent = power < 50 ? '❌ Недолет!' : '❌ Перелет!';
                     }
 
-                    // Возвращаем мяч на исходную позицию через паузу
+                    // Возврат мяча и персонажа в исходную позицию
                     setTimeout(() => {
-                        ball.style.left = '70px';
-                        ball.style.bottom = '50px';
+                        ball.style.left = '75px';
+                        ball.style.bottom = '55px';
                         ball.style.transform = 'rotate(0deg)';
+                        playerArm.style.transform = 'rotate(0deg)';
                         isThrowing = false;
+                        messageElement.textContent = 'Зажмите кнопку, чтобы рассчитать бросок!';
                     }, 800);
                 }
             }
 
-            requestAnimationFrame(animateThrow);
-        });
+            requestAnimationFrame(animate);
+        }
     </script>
 </body>
 </html>
